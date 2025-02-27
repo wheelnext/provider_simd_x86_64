@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "provider_simd_x86_64"
+version = "1.0.0"
+description = "A plugin for the `mockpip`"
+dependencies = ["variantlib"]
+
+[project.entry-points."variantlib.plugins"]
+provider_simd_x86_64 = "provider_simd_x86_64.plugin:SIMD_X86_64_Plugin"
