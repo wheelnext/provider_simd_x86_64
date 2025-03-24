@@ -26,7 +26,7 @@ class SIMD_X86_64_Plugin:  # noqa: N801
                 break
             yield KeyConfig(key=simd, values=["1"])
 
-    def run(self) -> ProviderConfig:
+    def get_supported_configs(self) -> ProviderConfig:
         keyconfigs = list(self._get_capabilities())
 
         return ProviderConfig(provider=self.__provider_name__, configs=keyconfigs)
