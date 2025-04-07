@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import os
 
-from provider_simd_x86_64 import __version__
-from variantlib.models.provider import ProviderConfig
 from variantlib.models.provider import VariantFeatureConfig
 
 FLAGS = [
@@ -53,8 +51,7 @@ FLAGS = [
 
 
 class SIMD_X86_64_Plugin:  # noqa: N801
-    __provider_name__ = "provider_simd_x86_64"
-    __version__ = __version__
+    namespace = "provider_simd_x86_64"
 
     def _get_capabilities(self):
         stop_after = int(os.environ.get("SIMD_STOP_AFTER", "1000"))
@@ -64,7 +61,8 @@ class SIMD_X86_64_Plugin:  # noqa: N801
                 break
             yield VariantFeatureConfig(name=simd, values=["1"])
 
-    def get_supported_configs(self) -> ProviderConfig:
-        keyconfigs = list(self._get_capabilities())
+    def get_supported_configs(self) -> list[VariantFeatureConfig]:
+        return list(self._get_capabilities())
 
-        return ProviderConfig(provider=self.__provider_name__, configs=keyconfigs)
+    def get_all_configs(self) -> list[VariantFeatureConfig]:
+        return [VariantFeatureConfig(x, ["1"]) for x in FLAGS]
